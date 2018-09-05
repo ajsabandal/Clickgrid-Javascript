@@ -31,7 +31,34 @@
             [false, false, false, false, false, false, false, false, false, false],
             [false, false, false, false, false, false, false, false, false, false],
         ];
-        console.log(box);
+        let status = "Black";
+        let clickStatus = true;
+        const boxClick = (row, column) => {
+            if (!box[row][column]) {
+                if (status === "Black") {
+                    box[row][column] = status;
+                    status = "White";
+                 renderBoard();
+                }
+                else {
+                    box[row][column] = status;
+                    status = "Black";
+                    renderBoard();
+                }            }
+        }
+        let renderBoard = () => {
+            grid.innerHTML = "";
+            box.forEach((row, indexRow) => {
+                row.forEach((column, indexColumn) => {
+                    let boxNumber = parseInt((indexColumn + 1) + (indexRow * 3));
+                    grid.innerHTML += (`
+                    <div class='boxUI ${box[indexRow][indexColumn]}' id='box${boxNumber}' onclick='boxClick(${indexRow}, ${indexColumn})'></div>
+                    `);
+                });
+                grid.innerHTML += "<br />";
+            });
+        }
+        renderBoard();
     </script>
 </body>
 </html>
